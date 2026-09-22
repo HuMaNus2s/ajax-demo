@@ -101,7 +101,15 @@
     <h2>4. Инфомация о себе через тег textarea</h2>
     <h2>5. Дополнить список технологий</h2> *@
 
-    <div id="result" class="result"></div>
+    <div id="result" class="result">
+        <div class="person-card">
+          <img class="person-card__photo" src="photo.jpg" alt="Имя Фамилия">
+          <div class="person-card__info">
+            <h3 class="person-card__name">Иван Иванов</h3>
+            <p class="person-card__role">Генеральный директор</p>
+          </div>
+        </div>
+    </div>
 
     @if (Model.Message != null)
     {
@@ -137,46 +145,48 @@
         await new Promise(resolve => setTimeout(resolve, 1500));
         console.log(result);
         document.querySelector("#result").textContent = result;
-        button.disabled = false;
         button.textContent = "Анкета успешно отправлена (❁´◡`❁)";
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        button.disabled = false;
+        button.textContent = "Отправить";
     })
 </script>
 
 <script>
-const phoneInput = document.getElementById('phone-input');
+    const phoneInput = document.getElementById('phone-input');
 
-phoneInput.addEventListener('input', function (e) {
-  let x = e.target.value.replace(/\D/g, '');
+    phoneInput.addEventListener('input', function (e) {
+      let x = e.target.value.replace(/\D/g, '');
 
-  if (x.length > 0 && x[0] === '8') {
-    x = '7' + x.substring(1);
-  }
+      if (x.length > 0 && x[0] === '8') {
+        x = '7' + x.substring(1);
+      }
 
-  let formatted = '';
-  if (x.length > 0) {
-    formatted = '+7';
-    if (x.length > 1) formatted += ' (' + x.substring(1, 4);
-    if (x.length >= 4) formatted += ') ' + x.substring(4, 7);
-    if (x.length >= 7) formatted += '-' + x.substring(7, 9);
-    if (x.length >= 9) formatted += '-' + x.substring(9, 11);
-  }
-  
-  e.target.value = formatted;
-});
+      let formatted = '';
+      if (x.length > 0) {
+        formatted = '+7';
+        if (x.length > 1) formatted += ' (' + x.substring(1, 4);
+        if (x.length >= 4) formatted += ') ' + x.substring(4, 7);
+        if (x.length >= 7) formatted += '-' + x.substring(7, 9);
+        if (x.length >= 9) formatted += '-' + x.substring(9, 11);
+      }
+    
+      e.target.value = formatted;
+    });
 
-phoneInput.addEventListener('keydown', function(e) {
-  if ((e.key === 'Backspace' || e.key === 'Delete') && this.value.length <= 2) {
-    e.preventDefault();
-  }
-  if (e.key === 'Backspace' || e.key === 'Delete') {
-    this.value = this.value.replace(/[-()\s]+$/, "");
-  }
-});
+    phoneInput.addEventListener('keydown', function(e) {
+      if ((e.key === 'Backspace' || e.key === 'Delete') && this.value.length <= 2) {
+        e.preventDefault();
+      }
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+        this.value = this.value.replace(/[-()\s]+$/, "");
+      }
+    });
 
-phoneInput.addEventListener('blur', function() {
-  const digits = this.value.replace(/\D/g, '').length;
-  if (digits < 11 && digits > 0) {
-    this.value = '';
-  }
-});
+    phoneInput.addEventListener('blur', function() {
+      const digits = this.value.replace(/\D/g, '').length;
+      if (digits < 11 && digits > 0) {
+        this.value = '';
+      }
+    });
 </script>

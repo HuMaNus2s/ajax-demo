@@ -111,3 +111,29 @@ border-radius: 12px;
 text-align: left;
 white-space: pre-line;
 }
+
+.person-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.person-card__photo {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.person-card__name {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.person-card__role {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #666;
+}
