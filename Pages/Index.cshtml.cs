@@ -6,39 +6,56 @@ namespace aspnetWebApp.Pages;
 public class IndexModel : PageModel
 {
     [BindProperty]
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
+    
     [BindProperty]
-    public string Phone { get; set; }
+    public string Phone { get; set; } = "";
+    
     [BindProperty]
-    public string Email { get; set; }
+    public string Email { get; set; } = "";
+    
     [BindProperty]
-    public string Speciality { get; set; }
+    public string Speciality { get; set; } = "";
+    
     [BindProperty]
-    public string Course { get; set; }
+    public string Course { get; set; } = "";
+    
     [BindProperty]
-    public string BirthDate { get; set; }
+    public string BirthDate { get; set; } = "";
+    
     [BindProperty]
     public string[] Technologies { get; set; } = Array.Empty<string>();
-    public string Message { get; set; }
-    public void OnGet()
-    {
-        // Message = "Привет! Сообщение от C#";
-    }
-    public IActionResult OnPost() {
 
-        string technologies = Technologies.Length > 0
-            ? string.Join(", ", Technologies)
+    public void OnGet()
+    { }
+
+    public IActionResult OnPost()
+    {
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            return BadRequest(new { success = false, message = "Ошибка валидации", errors = errors });
+        }
+
+        var technologiesString = Technologies.Length > 0 
+            ? string.Join(", ", Technologies) 
             : "Не выбраны";
 
-        string message = $"Анкета студента\n\n" +
-                $"Имя: {Name}\n" + 
-                $"Телефон: {Phone}\n" +
-                $"Email: {Email}\n" +
-                $"Специальность: {Speciality}\n" +
-                $"Курс: {Course}\n" +
-                $"Дата рождения: {BirthDate}\n" +
-                $"Технологии: {technologies}";
+        var responseData = new 
+        {
+            success = true,
+            data = new 
+            {
+                name = Name,
+                phone = Phone,
+                email = Email,
+                speciality = Speciality,
+                course = Course,
+                birthDate = BirthDate,
+                technologies = technologiesString
+            }
+        };
 
-        return Content(message);
+        return new JsonResult(responseData);
     }
 }
