@@ -6,6 +6,10 @@ body {
     /* background-position: fixed; */
 }
 
+h3 {
+  margin-block-start: 0em;
+}
+
 .form-container {
 max-width: 500px;
 margin: 50px auto;
@@ -97,10 +101,30 @@ background: #007bff;
 color: white;
 font-size: 16px;
 cursor: pointer;
+transition: all ease 0.125s;
 }
 
 .form-button:hover {
-background: #0056b3;
+  background: #0056b3;
+}
+
+.form-button-clear {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #007bff;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #007bff;
+  transition: all ease 0.125s;
+} 
+
+.form-button-clear:hover {
+  background: #007bff;
+  border: 1px solid #0056b3;
+  color: #ffffff;
 }
 
 .result {
@@ -113,12 +137,12 @@ text-align: left;
 
 .person-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
 }
 
 .person-card__info {
-  height: 4rem;
+  height: auto;
 }
 
 .person-card__photo {

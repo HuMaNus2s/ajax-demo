@@ -76,6 +76,10 @@
         <button class="form-button" type="submit">
             Отправить
         </button>
+        <br><br>
+        <button class="form-button-clear" type="reset">
+            Очистить
+        </button>
 
     </form>
 
@@ -96,8 +100,8 @@
 </div>
 
 <script>
-    const form = document.getElementById("student-form");
     const resultContainer = document.getElementById("result-container");
+    const form = document.getElementById("student-form");
     const prettyCard = document.getElementById("pretty-card");
 
     form.addEventListener("submit", async function (event) {
@@ -153,7 +157,12 @@
             button.disabled = false;
         }
     });
+
+    form.addEventListener("reset", async function (event) {
+        resultContainer.style.display = "none";
+    });
 </script>
+
 
 <script>
     const phoneInput = document.getElementById('phone-input');
