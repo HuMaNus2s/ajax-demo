@@ -1,57 +1,55 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using aspnetWebApp.Models;
+using aspnetWebApp.Services;
 
 namespace aspnetWebApp.Pages;
 
 public class IndexModel : PageModel
 {
-    [BindProperty]
-    public string Name { get; set; } = "";
-    
-    [BindProperty]
-    public string Phone { get; set; } = "";
-    
-    [BindProperty]
-    public string Email { get; set; } = "";
-    
-    [BindProperty]
-    public string Speciality { get; set; } = "";
-    
-    [BindProperty]
-    public string Course { get; set; } = "";
-    
-    [BindProperty]
-    public string BirthDate { get; set; } = "";
-    
-    [BindProperty]
-    public string[] Technologies { get; set; } = Array.Empty<string>();
+    private readonly IStudentService _studentService;
 
-    public void OnGet()
-    { }
+    public IndexModel(IStudentService studentService)
+    {
+        _studentService = studentService;
+    }
 
-    public IActionResult OnPost()
+    [BindProperty]
+    public Student InputStudent { get; set; } = new();
+
+    public List<Student> StudentsList { get; set; } = new();
+
+    public async Task OnGetAsync()
+    {
+        StudentsList = await _studentService.GetAllStudentsAsync();
+    }
+
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
         {
-            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-            return BadRequest(new { success = false, message = "Ошибка валидации", errors = errors });
+            StudentsList = await _studentService.GetAllStudentsAsync();
+            return Page();
         }
 
-        var technologiesString = Technologies.Length > 0 
-            ? string.Join(", ", Technologies) 
+        await _studentService.CreateStudentAsync(InputStudent);
+        
+        var technologiesString = InputStudent.Technologies?.Length > 0 
+            ? string.Join(", ", InputStudent.Technologies) 
             : "Не выбраны";
 
         var responseData = new 
         {
             success = true,
+            message = "Студент добавлен успешно",
             data = new 
             {
-                name = Name,
-                phone = Phone,
-                email = Email,
-                speciality = Speciality,
-                course = Course,
-                birthDate = BirthDate,
+                name = InputStudent.Name,
+                phone = InputStudent.Phone,
+                email = InputStudent.Email,
+                speciality = InputStudent.Speciality,
+                course = InputStudent.Course,
+                birthDate = InputStudent.BirthDate,
                 technologies = technologiesString
             }
         };

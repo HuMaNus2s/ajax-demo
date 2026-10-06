@@ -11,23 +11,23 @@ h3 {
 }
 
 .form-container {
-max-width: 500px;
-margin: 50px auto;
-padding: 35px;
-background: white;
-border-radius: 20px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-font-family: Arial, Helvetica, sans-serif;
-font-size: 20px;
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 35px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
 }
 
 .form-container h1 {
-margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .form-container p.description {
-color: #666;
-margin-bottom: 30px;
+  color: #666;
+  margin-bottom: 30px;
 }
 
 .form-group {
@@ -163,4 +163,59 @@ text-align: left;
   margin: 4px 0 0;
   font-size: 14px;
   color: #666;
+}
+
+#result-container {
+  display: box;
+  flex-wrap: wrap;
+}
+
+.anketa{
+  max-width: 50vw;
+}
+
+.anketa > #result-container > .person-card{
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.anketa > #result-container > .person-card > .person-card__info {
+  height: auto;
+}
+
+.anketa > #result-container > .person-card > .person-card__photo {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.anketa > #result-container > .person-card > .person-card__type {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.anketa > #result-container > .person-card > .person-card__content {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.anketa > #result-container > .person-card > .form-button-clear {
+  width: auto !important;
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  background: #ffffff;
+  color: #ff0000;
+  border: 1px solid #ff0000;
+  text-align: center;
+} 
+
+.anketa > #result-container > .person-card > .form-button-clear:hover {
+  background: #ff0000;
+  border: 1px solid #b30000;
+  color: #ffffff;
 }
