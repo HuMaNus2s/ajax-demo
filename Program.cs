@@ -19,7 +19,7 @@ if (!app.Environment.IsDevelopment())
 
 app.Use(async (context, next) =>
 {
-    Console.WriteLine($"[Запрос] {context.Request.Path}");
+    Console.WriteLine($"{context.Request.Path}");
     await next();
 });
 
