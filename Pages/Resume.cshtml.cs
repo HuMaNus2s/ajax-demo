@@ -5,11 +5,11 @@ using aspnetWebApp.Services;
 
 namespace aspnetWebApp.Pages;
 
-public class AnketsModel : PageModel
+public class ResumeModel : PageModel
 {
     private readonly IStudentService _studentService;
 
-    public AnketsModel(IStudentService studentService)
+    public ResumeModel(IStudentService studentService)
     {
         _studentService = studentService;
     }

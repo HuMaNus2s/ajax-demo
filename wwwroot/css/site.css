@@ -10,7 +10,6 @@ h3 {
   margin-block-start: 0em;
 }
 
-
 .form-container {
   max-width: 500px;
   margin: 50px auto;
@@ -219,4 +218,39 @@ text-align: left;
   background: #ff0000;
   border: 1px solid #b30000;
   color: #ffffff;
+}
+
+.navbar-nav li:first-child {
+  border-left: 0px solid rgba(0, 0, 0, 0);
+  border-right: 0.5px solid rgba(0, 0, 0, 0.2);
+}
+
+.navbar-nav li {
+  border-left: 0.5px solid rgba(0, 0, 0, 0.2);
+  border-right: 0.5px solid rgba(0, 0, 0, 0.2);
+  line-height: 4px;
+}
+
+.navbar-nav li:last-child {
+  border-right: 0px solid rgba(0, 0, 0, 0);
+  border-left: 0.5px solid rgba(0, 0, 0, 0.2);
+}
+
+.nav-item a {
+  color: rgb(48, 48, 48) !important;
+  font-weight: 400 !important;
+  transition: all 0.1s;
+  &:hover {
+    color: black;
+    font-weight: 500 !important;
+  }
+  &::after {
+    content: attr(data-text);
+    display: block;
+    font-weight: bold;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+  }
 }

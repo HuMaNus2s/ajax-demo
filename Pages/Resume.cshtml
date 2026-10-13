@@ -1,12 +1,11 @@
 @page
-@model AnketsModel
+@model ResumeModel
 
 @{
     ViewData["Title"] = "Анкеты";
 }
 
 <div class="form-container anketa">
-    <button onclick="window.location.href='/'">Назад</button>
     <h1>Анкеты студентов</h1>
 
     <div id="result-container">
@@ -17,7 +16,7 @@
     <div class="person-card" style="display: flex; margin-bottom: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #f9f9f9;">
         <img class="person-card__photo" src="~/images/943474a189e25a78e83fe3d2ae9b656e.jpg" alt="Фото" style="width: 60px; height: 60px;">
         <div class="person-card__info">
-            <div style="display: flex;"><h3 class="card-name" style="margin: 0 0 5px 0; color: #333;"></h3><h3 class="card-id" style="margin: 0 0 5px 0; color: #333;"></h3></div>
+            <div style="display: flex;"><h3 class="card-name" style="margin: 0 0 5px 0; color: #333;"></h3>&nbsp;<h3 class="card-id" style="margin: 0 0 5px 0; color: #333;"></h3></div>
             <p class="card-speciality" style="margin: 0 0 10px 0; color: #666; font-style: italic;"></p>
             <p style="margin: 4px 0;"><strong>Тел:</strong> <span class="card-phone"></span></p>
             <p style="margin: 4px 0;"><strong>Email:</strong> <span class="card-email"></span></p>
@@ -60,7 +59,6 @@
             const result = await response.json();
 
             if (result.success && result.data && result.data.length > 0) {
-                resultContainer.innerHTML = "<h3>Список студентов:</h3>";
 
                 result.data.forEach(student => {
                     const clone = template.content.cloneNode(true);
@@ -75,7 +73,7 @@
                     const techs = Array.isArray(student.technologies)
                         ? student.technologies.join(", ")
                         : student.technologies;
-                    clone.querySelector(".card-techs").textContent = techs;
+                    clone.querySelector(".card-techs").textContent = techs ? techs : "Немае";
 
                     clone.querySelector(".form-button-clear")
                         .addEventListener("click", () => deleteUser(student.id, card));
