@@ -5,25 +5,53 @@
     ViewData["Title"] = "Анкеты";
 }
 
-<div class="form-container anketa">
-    <h1>Анкеты студентов</h1>
-
-    <div id="result-container">
+<div class="form-container shadow main">
+    <div class="position-relative mb-4">
+        <p class="font-monospace text-dark small text-uppercase">CollegeJob</p>
+        <a class="position-absolute top-0 end-0 btn btn-outline-dark hover-lift py-2 px-3 text-decoration-none text-dark mb-2" data-text="Создать резюме" asp-area="" asp-page="/NewResume">Создать резюме</a>
     </div>
+
+    <div id="result-container"></div>
 </div>
 
 <template id="student-template">
-    <div class="person-card" style="display: flex; margin-bottom: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #f9f9f9;">
-        <img class="person-card__photo" src="~/images/943474a189e25a78e83fe3d2ae9b656e.jpg" alt="Фото" style="width: 60px; height: 60px;">
-        <div class="person-card__info">
-            <div style="display: flex;"><h3 class="card-name" style="margin: 0 0 5px 0; color: #333;"></h3>&nbsp;<h3 class="card-id" style="margin: 0 0 5px 0; color: #333;"></h3></div>
-            <p class="card-speciality" style="margin: 0 0 10px 0; color: #666; font-style: italic;"></p>
-            <p style="margin: 4px 0;"><strong>Тел:</strong> <span class="card-phone"></span></p>
-            <p style="margin: 4px 0;"><strong>Email:</strong> <span class="card-email"></span></p>
-            <p style="margin: 4px 0;"><strong>Технологии:</strong> <span class="card-techs"></span></p>
-        </div>
-        <button class="form-button-clear" type="button">X</button>
 
+    <div class="card person-card shadow position-relative rounded hover-lift">
+        <div class="card-body">
+            <span class="card-id shadow-sm position-absolute top-0 start-0 m-2 border rounded"></span>
+
+            <button class="form-button-clear shadow-sm position-absolute top-0 end-0 m-2 border rounded" type="button" aria-label="Удалить">
+                X
+            </button>
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <img class="person-card__photo" src="~/images/943474a189e25a78e83fe3d2ae9b656e.jpg" alt="avatar">
+
+                <div class="min-w-0">
+                    <h5 class="card-name text-truncate mb-1"></h5>
+                    <div class="card-speciality text-secondary text-truncate"></div>
+                </div>
+            </div>
+            <div class="d-grid gap-3">
+                <div>
+                    <div class="person-card-label text-uppercase">Phone</div>
+                    <div class="person-card-value">
+                        <span class="card-phone"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="person-card-label text-uppercase">Email</div>
+                    <div class="person-card-value">
+                        <span class="card-email"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="person-card-label text-uppercase">Technologies</div>
+                    <div class="person-card-value">
+                        <span class="d-flex card-techs gap-2"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -64,16 +92,31 @@
                     const clone = template.content.cloneNode(true);
                     const card = clone.querySelector(".person-card");
 
-                    clone.querySelector(".card-id").textContent = `| ID: ${student.id}`;
+                    clone.querySelector(".card-id").textContent = `${student.id}`;
                     clone.querySelector(".card-name").textContent = student.name;
                     clone.querySelector(".card-speciality").textContent = `${student.speciality}, ${student.course}`;
                     clone.querySelector(".card-phone").textContent = student.phone;
                     clone.querySelector(".card-email").textContent = student.email;
 
-                    const techs = Array.isArray(student.technologies)
-                        ? student.technologies.join(", ")
-                        : student.technologies;
-                    clone.querySelector(".card-techs").textContent = techs ? techs : "Немае";
+                    const techContainer = clone.querySelector(".card-techs");
+
+                    techContainer.replaceChildren();
+
+                    if (Array.isArray(student.technologies) && student.technologies.length > 0) {
+                        student.technologies.forEach((tech) => {
+                            const badge = document.createElement("span");
+
+                            badge.classList.add("badge", "text-bg-primary");
+                            badge.textContent = tech;
+
+                            techContainer.appendChild(badge);
+                        });
+                    } else {
+                        const badge = document.createElement("span");
+                        badge.classList.add("badge", "text-bg-danger");
+                        badge.textContent = "Немае";
+                        techContainer.appendChild(badge);
+                    }
 
                     clone.querySelector(".form-button-clear")
                         .addEventListener("click", () => deleteUser(student.id, card));
@@ -81,7 +124,7 @@
                     resultContainer.appendChild(clone);
                 });
             } else {
-                resultContainer.innerHTML = "<p>Студенты не найдены.</p>";
+                resultContainer.innerHTML = "<p>Нет доступных резюме</p>";
             }
         } catch (error) {
             console.error("Ошибка при загрузке:", error);

@@ -10,6 +10,21 @@ h3 {
   margin-block-start: 0em;
 }
 
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover,
+.hover-lift:focus-visible {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift {
+    transition: none;
+  }
+}
+
 .form-container {
   max-width: 500px;
   margin: 50px auto;
@@ -21,6 +36,22 @@ h3 {
   font-size: 20px;
 }
 
+.form-container.main {
+  max-width: 80vw;
+  padding-bottom: 4rem;
+  padding-top: 4rem;
+}
+
+.container {
+  max-width: 80vw;
+}
+
+.main > p {
+  color: #ffffff86;
+  font-size: medium;
+}
+
+
 .form-container h1 {
   margin-bottom: 10px;
 }
@@ -28,6 +59,10 @@ h3 {
 .form-container p.description {
   color: #666;
   margin-bottom: 30px;
+}
+
+.main > p.description {
+  color: #fff;
 }
 
 .form-group {
@@ -112,7 +147,6 @@ transition: all ease 0.125s;
   width: 100%;
   padding: 13px;
   border: none;
-  border-radius: 10px;
   background: #ffffff;
   color: #007bff;
   font-size: 16px;
@@ -135,38 +169,9 @@ border-radius: 12px;
 text-align: left;
 }
 
-.person-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.person-card__info {
-  height: auto;
-}
-
-.person-card__photo {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.person-card__type {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.2;
-}
-
-.person-card__content {
-  margin: 4px 0 0;
-  font-size: 14px;
-  color: #666;
-}
-
 #result-container {
-  display: box;
+  display: flex;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -174,66 +179,81 @@ text-align: left;
   max-width: 50vw;
 }
 
-.anketa > #result-container > .person-card{
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
+.person-card {
+    width: 100%;
+    max-width: 18rem;
+    border: 0;
+    background: #ffffff;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.anketa > #result-container > .person-card > .person-card__info {
-  height: auto;
+.person-card .card-body {
+    padding: 3.4rem 1.25rem 1.25rem;
 }
 
-.anketa > #result-container > .person-card > .person-card__photo {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
+.person-card__photo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.06),
+        0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
-.anketa > #result-container > .person-card > .person-card__type {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.2;
+.person-card .card-id {
+    min-width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: gray;
+    z-index: 2;
 }
 
-.anketa > #result-container > .person-card > .person-card__content {
-  margin: 4px 0 0;
-  font-size: 14px;
-  color: #666;
+.person-card .form-button-clear {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #dc3545;
+    transition: all 0.15s ease;
+    z-index: 2;
 }
 
-.anketa > #result-container > .person-card > .form-button-clear {
-  width: auto !important;
-  margin-left: auto;
-  padding: 0.5rem 1rem;
-  background: #ffffff;
-  color: #ff0000;
-  border: 1px solid #ff0000;
-  text-align: center;
-} 
-
-.anketa > #result-container > .person-card > .form-button-clear:hover {
-  background: #ff0000;
-  border: 1px solid #b30000;
-  color: #ffffff;
+.person-card .form-button-clear:hover {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: #ffffff;
 }
 
-.navbar-nav li:first-child {
-  border-left: 0px solid rgba(0, 0, 0, 0);
-  border-right: 0.5px solid rgba(0, 0, 0, 0.2);
+.person-card .card-name {
+    font-size: 1rem;
+    font-weight: 650;
+    margin-bottom: 0;
 }
 
-.navbar-nav li {
-  border-left: 0.5px solid rgba(0, 0, 0, 0.2);
-  border-right: 0.5px solid rgba(0, 0, 0, 0.2);
-  line-height: 4px;
+.person-card .card-speciality {
+    font-size: 0.9rem;
 }
 
-.navbar-nav li:last-child {
-  border-right: 0px solid rgba(0, 0, 0, 0);
-  border-left: 0.5px solid rgba(0, 0, 0, 0.2);
+.person-card-label {
+    margin-bottom: 0.2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.125em;
+    color: #8a94a6;
+}
+
+.person-card-value {
+    font-size: 0.95rem;
+    color: #212529;
+    word-break: break-word;
 }
 
 .nav-item a {
@@ -253,4 +273,8 @@ text-align: left;
     visibility: hidden;
     pointer-events: none;
   }
+}
+
+.text-purple-700 {
+  color: #432874 !important; 
 }
