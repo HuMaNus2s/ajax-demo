@@ -5,13 +5,16 @@ using aspnetWebApp.Services;
 
 namespace aspnetWebApp.Pages;
 
+[IgnoreAntiforgeryToken]
 public class ResumeModel : PageModel
 {
     private readonly IStudentService _studentService;
+    private readonly ILogger<ResumeModel> _logger;
 
-    public ResumeModel(IStudentService studentService)
+    public ResumeModel(IStudentService studentService, ILogger<ResumeModel> logger)
     {
         _studentService = studentService;
+        _logger = logger;
     }
 
     [BindProperty]
@@ -30,9 +33,11 @@ public class ResumeModel : PageModel
         return new JsonResult(new { success = true, data = students });
     }
 
-    public async Task<IActionResult> OnPostDeleteAsync(int id)
+    public async Task<IActionResult> OnPostDeleteAsync([FromQuery] int id)
     {
+        _logger.LogInformation($"OnPostDeleteAsync вызван с id: {id}");
         await _studentService.DeleteStudentAsync(id);
+        _logger.LogInformation($"Студент {id} успешно удалён");
         return new JsonResult(new { success = true });
     }
 

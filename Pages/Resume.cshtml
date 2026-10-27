@@ -11,7 +11,9 @@
         <a class="position-absolute top-0 end-0 btn btn-outline-dark hover-lift py-2 px-3 text-decoration-none text-dark mb-2" data-text="Создать резюме" asp-area="" asp-page="/NewResume">Создать резюме</a>
     </div>
 
-    <div id="result-container"></div>
+    <div class="position-relative">
+        <div id="result-container"></div>
+    </div>
 </div>
 
 <template id="student-template">
@@ -24,7 +26,7 @@
                 X
             </button>
             <div class="d-flex align-items-center gap-3 mb-4">
-                <img class="person-card__photo" src="~/images/943474a189e25a78e83fe3d2ae9b656e.jpg" alt="avatar">
+                <img class="person-card__photo shadow" src="~/images/943474a189e25a78e83fe3d2ae9b656e.jpg" alt="avatar">
 
                 <div class="min-w-0">
                     <h5 class="card-name text-truncate mb-1"></h5>
@@ -124,7 +126,11 @@
                     resultContainer.appendChild(clone);
                 });
             } else {
-                resultContainer.innerHTML = "<p>Нет доступных резюме</p>";
+                resultContainer.innerHTML = "<div class='mt-4 position-absolute top-50 start-50 translate-middle'><p class=' text-center'>" +
+                "Нема резюме<br>" +
+                "Но ты можешь  " +
+                "<a class='hover-lift text-dark mb-2' data-text='Создать резюме' asp-area='' asp-page='/NewResume'>" +
+                "создать резюме</a></p></div>";
             }
         } catch (error) {
             console.error("Ошибка при загрузке:", error);

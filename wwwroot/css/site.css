@@ -196,10 +196,6 @@ text-align: left;
     height: 64px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ffffff;
-    box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.06),
-        0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
 .person-card .card-id {
@@ -277,4 +273,12 @@ text-align: left;
 
 .text-purple-700 {
   color: #432874 !important; 
+}
+
+.btn:hover {
+  background-color: #4e4e4e !important;
+}
+
+.btn-outline-dark:hover {
+  color: white !important;
 }
